@@ -33,15 +33,18 @@
          this.setState({todos: todos});
      }
      
-     deleteTodo() {
-         console.log('deleteTodo executed');
+     deleteTodo(index) {
+         const todos = this.state.todos.slice();
+         todos.splice(todos[index],1);
+         this.setState({todos: todos});
      }
+     
    render() {
      return (
        <div className="App">
         <ul>
          {this.state.todos.map( (todo, index) =>
-         <ToDo key={index} description={todo.description} isCompleted={todo.isCompleted} toggleComplete={() => this.toggleComplete(index)} deleteTodo={this.deleteTodo} />
+         <ToDo key={index} description={todo.description} isCompleted={todo.isCompleted} toggleComplete={() => this.toggleComplete(index)} deleteTodo={() => this.deleteTodo(index)} />
              )}
         </ul>
         <form onSubmit={(e) => this.handleSubmit(e)}>
