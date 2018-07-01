@@ -14,31 +14,43 @@
              newTodoDescription: ''
          };
      }
-     
+
      handleChange(e) {
          this.setState({newTodoDescription: e.target.value})
      }
-     
+
      handleSubmit(e) {
          e.preventDefault();
          if (!this.state.newTodoDescription) {return}
          const newTodo = { description: this.state.newTodoDescription, isCompleted: false };
          this.setState({ todos: [...this.state.todos, newTodo], newTodoDescription: '' });
      }
-     
+
      toggleComplete(index) {
          const todos = this.state.todos.slice();
          const todo = todos[index];
          todo.isCompleted = todo.isCompleted ? false : true;
          this.setState({todos: todos});
      }
-     
+
+     // deleteTodo(index) {
+     //     const todos = this.state.todos.slice();
+     //     const todo = todos[index];
+     //     todos.splice(todo,1);
+     //     this.setState({todos: todos});
+     // }
+
      deleteTodo(index) {
-         const todos = this.state.todos.slice();
-         todos.splice(todos[index],1);
+         const todos = this.state.todos.filter(function (value, todosIndex) {
+           // return todosIndex !== index;
+           if (todosIndex === index) return false;
+
+           return true;
+         });
+
          this.setState({todos: todos});
      }
-     
+
    render() {
      return (
        <div className="App">
